@@ -1,0 +1,41 @@
+﻿<Window x:Class="CurrencyChanger.CurrencyRate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CurrencyChanger"
+        mc:Ignorable="d"
+        Title="CurrencyRate" Height="450" Width="344">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="20 8 20 8" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="30" />
+        </Style>
+    </Window.Resources>
+    <Grid HorizontalAlignment="Left" Width="800">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Margin="10">
+            <DataGrid Name="dgSimple" Margin="26,45,491,57"></DataGrid>
+            <Label Content="Currency rate" HorizontalAlignment="Left" Margin="98,10,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="15px" Width="123"/>
+        </Grid>
+
+        <!--<StackPanel HorizontalAlignment="Center"  Grid.Row="1" Orientation="Horizontal">
+            <Button x:Name="updateButton" Content="Обновить"  />
+            <Button x:Name="deleteButton" Content="Удалить"  />
+        </StackPanel>
+        <Label Content="Currency changer" HorizontalAlignment="Right" Margin="0,10,119,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="15px" Width="227"/>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="372,0,0,0" Width="428">
+            <RadioButton GroupName="Sell" Content="Sell">
+         
+            </RadioButton>
+            <Button Content="Buy" Click="Button_Click"/>
+            <Button Content="Sell"/>
+        </StackPanel>-->
+
+    </Grid>
+</Window>
