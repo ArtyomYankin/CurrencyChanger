@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CurrencyChanger.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -14,10 +17,26 @@ namespace CurrencyChanger
     /// </summary>
     public partial class App : Application
     {
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private ServiceProvider serviceProvider;
+
+        public App()
         {
-            TextBox textBox = (TextBox)sender;
-            MessageBox.Show(textBox.Text);
+            ServiceCollection services = new ServiceCollection();
+            services.AddDbContext<ApplicationDbContext>(option =>
+            {
+                option.UseSqlite("Data Source = currency.db");
+            });
+
+            services.AddSingleton<CashierWindow>();
+            services.AddSingleton<MainWindow>();
+            services.AddSingleton<CustomerWindow>();
+            serviceProvider = services.BuildServiceProvider();
+        }
+
+        private void OnStartup(object s, StartupEventArgs e)
+        {
+            var mainWindow = serviceProvider.GetService<MainWindow>();
+            mainWindow.Show();
         }
     }
 }

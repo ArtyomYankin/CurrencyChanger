@@ -1,0 +1,116 @@
+﻿<Window x:Class="CurrencyChanger.CashierWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CurrencyChanger"
+        mc:Ignorable="d"
+        Title="CashierWindow" Height="600" Width="950">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Currency Rate"/>
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" Margin="5" Name="CurrencyDG" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Currency Name" Binding="{Binding CurrencyName}"/>
+                <DataGridTextColumn Header="Buy Rate" Binding="{Binding BuyRate}"/>
+                <DataGridTextColumn Header="Sell Rate" Binding="{Binding SellRate}"/>
+
+                <DataGridTemplateColumn Header="Update Product">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit" Click="UpdateCurrencyForEdit"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Delete Product">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Click="DeleteCurrency"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+            
+        </DataGrid>
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel Margin="5">
+                    <Label Content="Add new currency" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <Grid Margin="5" x:Name="AddNewProductGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Name"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrencyName}"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Buy Rate"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding BuyRate}"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Sell Rate"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SellRate}"/>
+
+                        <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Add" Margin="5" Click="AddCurrency"/>
+
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel Margin="5">
+                    <Label Content="Update currency rate" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <Grid Margin="5" x:Name="UpdateProductGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Buy Rate"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding BuyRate}"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Sell Rate"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SellRate}"/>
+
+                        <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Update" Margin="5" Click="UpdateCurrency"/>
+
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,36 @@
+﻿<Window x:Class="CurrencyChanger.CustomerLoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CurrencyChanger"
+        mc:Ignorable="d"
+        Title="CustomerLoginWindow" Height="150" Width="400">
+    <Grid>
+        <StackPanel Margin="5">
+            <Label Content="Write your name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Grid Margin="5" x:Name="LoginCustomerGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Name" Margin="22,0,119,30" Grid.RowSpan="5"/>
+                <TextBox Grid.Row="0" Text="{Binding Name}" Grid.ColumnSpan="2" Margin="106,0,0,30" Grid.RowSpan="5"/>
+
+                <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Login" Margin="5,10,5,0" Click="LoginButton"/>
+
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+</Window>

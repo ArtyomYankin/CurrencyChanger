@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CurrencyChanger.Data
 {
-    class Receipt
+    public class Receipt
     {
         public int ReceiptId { get; set; }
-        public string Customer { get; set; }
+        public Customer Customer { get; set; }
         public double Bought { get; set; }
         public double Sold { get; set; }
         public int CustomerId { get; set; }
