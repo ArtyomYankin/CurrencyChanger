@@ -5,37 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CurrencyChanger"
         mc:Ignorable="d"
-        Title="CurrencyRate" Height="450" Width="344">
+        Title="CurrencyRate" Height="450" Width="286">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="20 8 20 8" />
-            <Setter Property="Width" Value="100" />
+            <Setter Property="Width" Value="250" />
             <Setter Property="Height" Value="30" />
         </Style>
     </Window.Resources>
     <Grid HorizontalAlignment="Left" Width="800">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="134*"/>
         </Grid.RowDefinitions>
-        <Grid Margin="10">
-            <DataGrid Name="dgSimple" Margin="26,45,491,57"></DataGrid>
-            <Label Content="Currency rate" HorizontalAlignment="Left" Margin="98,10,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="15px" Width="123"/>
-        </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="165*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
 
-        <!--<StackPanel HorizontalAlignment="Center"  Grid.Row="1" Orientation="Horizontal">
-            <Button x:Name="updateButton" Content="Обновить"  />
-            <Button x:Name="deleteButton" Content="Удалить"  />
-        </StackPanel>
-        <Label Content="Currency changer" HorizontalAlignment="Right" Margin="0,10,119,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="15px" Width="227"/>
+        <DataGrid AutoGenerateColumns="False" Margin="5,5,0,5" Name="CurrencyDG" IsReadOnly="True" HorizontalAlignment="Left" Width="280" RenderTransformOrigin="0.503,0.492" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Currency Name" Binding="{Binding CurrencyName}"/>
+                <DataGridTextColumn Header="Buy Rate" Binding="{Binding BuyRate}"/>
+                <DataGridTextColumn Header="Sell Rate" Binding="{Binding SellRate}"/>
 
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="372,0,0,0" Width="428">
-            <RadioButton GroupName="Sell" Content="Sell">
-         
-            </RadioButton>
-            <Button Content="Buy" Click="Button_Click"/>
-            <Button Content="Sell"/>
-        </StackPanel>-->
+
+
+
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
 
     </Grid>
 </Window>

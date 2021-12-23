@@ -20,19 +20,19 @@ namespace CurrencyChanger
     /// </summary>
     public partial class CurrencyRate : Window
     {
-        public CurrencyRate()
+
+        private readonly ApplicationDbContext _applicationDbContext;
+        public CurrencyRate(ApplicationDbContext applicationDbContext)
         {
             InitializeComponent();
 
-            //            InitializeComponent();
-            List<Currency> currencies = new List<Currency>();
-            currencies.Add(new Currency() { CurrencyId = 1, CurrencyName = "Dollar", BuyRate = 2.533, SellRate = 2.542 });
-            currencies.Add(new Currency() { CurrencyId = 2, CurrencyName = "Euro", BuyRate = 2.533, SellRate = 2.542 });
-            currencies.Add(new Currency() { CurrencyId = 3, CurrencyName = "Zloty", BuyRate = 2.533, SellRate = 2.542 });
-
-            dgSimple.ItemsSource = currencies;
+            _applicationDbContext = applicationDbContext;
+            GetCurrencies();
         }
-
+        private void GetCurrencies()
+        {
+            CurrencyDG.ItemsSource = _applicationDbContext.Currencies.ToList();
+        }
         public void ShowViewModel()
         {
             MessageBox.Show("Currency rate:");
