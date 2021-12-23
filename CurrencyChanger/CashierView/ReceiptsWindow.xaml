@@ -1,0 +1,18 @@
+﻿<Window x:Class="CurrencyChanger.ReceiptsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CurrencyChanger"
+        mc:Ignorable="d"
+        Title="ReceiptsWindow" Height="450" Width="800">
+    <Grid>
+        <Button Content="Load" Click="LoadPhisicalFiles" Margin="35,10,561,372"/>
+        <ListBox Height="185" Width="629" HorizontalAlignment="Left" Margin="10,104,0,0" x:Name="bListFiles" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" VerticalContentAlignment="Top" Grid.ColumnSpan="2" IsTextSearchCaseSensitive="True">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+    </Grid>
+</Window>
