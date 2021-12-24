@@ -23,10 +23,12 @@ namespace CurrencyChanger
     public partial class MainWindow : Window
     {
         ApplicationDbContext _applicationDbContext;
+        private DateTime Date;
         public MainWindow(ApplicationDbContext applicationDbContext)
         {
             InitializeComponent();
             _applicationDbContext = applicationDbContext;
+            Date = DateTime.Now;
         }
         private void AsCustomerButtonClick(object sender, RoutedEventArgs e)
         {
@@ -37,6 +39,24 @@ namespace CurrencyChanger
         {
             CashierWindow cashierWindow = new CashierWindow(_applicationDbContext);
             cashierWindow.Show();
+        }
+        private void NextDayClick(object sender, RoutedEventArgs e)
+        {
+            Date = Date.AddDays(1);
+            ChangeCurrencyRates();
+        }
+        private void ChangeCurrencyRates()
+        {
+            var currencies = _applicationDbContext.Currencies.ToList();
+            foreach (var c in currencies)
+            {
+                Random random = new Random();
+                c.SellRate = random.NextDouble()/10 + c.SellRate - random.NextDouble()/10;
+                c.BuyRate = random.NextDouble()/10 + c.SellRate - random.NextDouble()/10;
+                c.BuyRate = Math.Round(c.BuyRate, 2);
+                c.SellRate = Math.Round(c.SellRate, 2);
+            }
+            _applicationDbContext.SaveChanges();
         }
     }
 }

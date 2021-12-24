@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Label HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Content="Currency Converter" FontSize="25" Foreground="Black" FontWeight="Bold" Margin="10,0,301,340"/>
+        <Label HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Content="Today is" FontSize="25" Foreground="Black" FontWeight="Bold" Margin="332,67,350,294"/>
+        <Label Content="{Binding Date}" Margin="276,140,242,228"></Label>
         <Button Grid.Row="0" Content="Cashier" Margin="445,217,160,159" Click="AsCashierButtonClick"/>
         <Button Grid.Row="1" Content="Customer" Margin="108,217,445,160" Click="AsCustomerButtonClick"/>
+        <Button Content="Next Day" Margin="689,349,10,48" Click="NextDayClick" RenderTransformOrigin="0.479,0.624"/>
     </Grid>
 </Window>
