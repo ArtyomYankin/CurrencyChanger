@@ -11,6 +11,7 @@
         <ListBox Height="185" Width="629" HorizontalAlignment="Left" Margin="10,104,0,0" x:Name="bListFiles" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" VerticalContentAlignment="Top" Grid.ColumnSpan="2" IsTextSearchCaseSensitive="True">
             <ListBox.ContextMenu>
                 <ContextMenu>
+                    <MenuItem x:Name="mnPreview" Header="Preview..." Click ="mnPreview_Click"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>

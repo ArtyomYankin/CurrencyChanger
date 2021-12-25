@@ -1,6 +1,7 @@
 ﻿using CurrencyChanger.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -38,13 +39,17 @@ namespace CurrencyChanger
                 string fileName = finfo.Name;
                 Files f = new Files();
                 f.Name = fileName;
-                bListFiles.Items.Add(f);
                 bListFiles.Items.Add(new CheckBox()
                 {
                     Content = f.Name
                 });
                 files.Add(f);
             }
+        }
+        private void mnPreview_Click(object c, RoutedEventArgs a)
+        {
+            var fileName = ((CheckBox)bListFiles.SelectedItem).Content.ToString();
+            new Process { StartInfo = new ProcessStartInfo($"{filesPath}{fileName}") { UseShellExecute = true } }.Start();
         }
     }
 }
