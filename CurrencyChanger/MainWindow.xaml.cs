@@ -48,6 +48,7 @@ namespace CurrencyChanger
         private void ChangeCurrencyRates()
         {
             var currencies = _applicationDbContext.Currencies.ToList();
+            var customers = _applicationDbContext.Customers.ToList();
             foreach (var c in currencies)
             {
                 Random random = new Random();
@@ -55,6 +56,10 @@ namespace CurrencyChanger
                 c.BuyRate = random.NextDouble()/10 + c.SellRate - random.NextDouble()/10;
                 c.BuyRate = Math.Round(c.BuyRate, 2);
                 c.SellRate = Math.Round(c.SellRate, 2);
+            }
+            foreach (var c in customers)
+            {
+                c.CurrencyLimit = 0;
             }
             _applicationDbContext.SaveChanges();
         }

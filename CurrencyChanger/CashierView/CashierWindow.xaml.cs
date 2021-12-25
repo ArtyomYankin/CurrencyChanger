@@ -1,4 +1,5 @@
 ﻿using CurrencyChanger.Data;
+using CurrencyChanger.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,19 +23,21 @@ namespace CurrencyChanger
     {
         ApplicationDbContext _applicationDbContext;
         Currency newCurrency = new Currency();
+        public static double currencyLimit = 1000; 
 
         public CashierWindow(ApplicationDbContext applicationDbContext)
         {
             InitializeComponent();
             _applicationDbContext = applicationDbContext;
             GetCurrencies();
-
             AddNewProductGrid.DataContext = newCurrency;
+            DataContext = this;
         }
 
         private void GetCurrencies()
         {
             CurrencyDG.ItemsSource = _applicationDbContext.Currencies.ToList();
+           
         }
         private void AddCurrency(object s, RoutedEventArgs e)
         {
@@ -44,7 +47,11 @@ namespace CurrencyChanger
             newCurrency = new Currency();
             AddNewProductGrid.DataContext = newCurrency;
         }
-
+        private void ChangeLimit(object s, RoutedEventArgs e)
+        {
+            currencyLimit = double.Parse(NewLimit.Text.ToString());
+            NewLimit.Text = String.Empty;
+        }
         Currency selectedCurrency = new Currency();
         private void UpdateCurrencyForEdit(object s, RoutedEventArgs e)
         {

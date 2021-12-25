@@ -1,4 +1,5 @@
 ﻿using CurrencyChanger.Data;
+using CurrencyChanger.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,6 +27,7 @@ namespace CurrencyChanger
     {
 
         private readonly string filesPath = "C:/Users/Artyom Yankin/Desktop/WPF/CurrencyChanger/Receipts/";
+        private double _limit;
         private readonly ApplicationDbContext _applicationDbContext;
         private Customer _currentCustomer;
         public CustomerWindow(Customer customer, ApplicationDbContext applicationDbContext)
@@ -34,7 +36,7 @@ namespace CurrencyChanger
             _currentCustomer = customer;
             InitializeComponent();
             _applicationDbContext = applicationDbContext;
-
+            _limit = CashierWindow.currencyLimit;
             ClearControls();
 
             BindCurrency();
@@ -64,52 +66,78 @@ namespace CurrencyChanger
         }
         private void GetCurrency_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Succesfully Done");
             string gotenCurrency = ToCurrency.Text;
+
             double moneyGet = double.Parse(CurrencyToGet.Content.ToString());
-            var changeTime = DateTime.Now;
-            var fileName =  filesPath + changeTime.Millisecond.ToString().Replace("/", ".") + _currentCustomer.Name;
-            using (FileStream fileStream = new FileStream($"{fileName}.txt", FileMode.OpenOrCreate))
+            double savedLimit = _currentCustomer.CurrencyLimit;
+            _currentCustomer.CurrencyLimit += moneyGet;
+            if (_currentCustomer.CurrencyLimit <= _limit)
             {
-                using (StreamWriter sw = new StreamWriter(fileStream, Encoding.UTF8))
+                var changeTime = DateTime.Now;
+                var fileName = filesPath + changeTime.Millisecond.ToString().Replace("/", ".") + _currentCustomer.Name;
+
+                MessageBox.Show("Succesfully Done");
+                using (FileStream fileStream = new FileStream($"{fileName}.txt", FileMode.OpenOrCreate))
                 {
-                    sw.WriteLine($"Operation: Buy {gotenCurrency} in amount of {moneyGet}");
-                    sw.WriteLine($"Rubles inserted: {InsertedRubles.Text}");
-                    sw.WriteLine($"Date: {changeTime}");
-                    sw.WriteLine($"Customer:{_currentCustomer.Name}");
-                } ;
+                    using (StreamWriter sw = new StreamWriter(fileStream, Encoding.UTF8))
+                    {
+                        sw.WriteLine($"Operation: Buy {gotenCurrency} in amount of {moneyGet}");
+                        sw.WriteLine($"Rubles inserted: {InsertedRubles.Text}");
+                        sw.WriteLine($"Date: {changeTime}");
+                        sw.WriteLine($"Customer:{_currentCustomer.Name}");
+                    };
+                }
+                fileName = fileName + ".txt";
+                new Process { StartInfo = new ProcessStartInfo(fileName) { UseShellExecute = true } }.Start();
+                CurrencyToGet.Content = "";
+                _applicationDbContext.SaveChanges();
+                ClearControls();
             }
-            fileName = fileName + ".txt";
-            new Process { StartInfo = new ProcessStartInfo(fileName) { UseShellExecute  = true } }.Start();
-            CurrencyToGet.Content = "";
-            ClearControls();
+            else
+            {
+                MessageBox.Show($"You've already overhelmed limit for this day! Used currency:{_currentCustomer.CurrencyLimit} > {_limit}");
+                _currentCustomer.CurrencyLimit = savedLimit;
+                ClearControls();
+            }
         }
         private void GetRubles_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Succesfully Done");
-            string gotenCurrency = CurrencyFrom.Text;
-            double moneyGet = double.Parse(RublesToGet.Content.ToString());
-            var changeTime = DateTime.Now;
-            var fileName = filesPath + changeTime.Millisecond.ToString().Replace("/", ".") + _currentCustomer.Name;
-            using (FileStream fileStream = new FileStream($"{fileName}.txt", FileMode.OpenOrCreate))
+            double currencyInserted = double.Parse(InsertedCurrency.Text.ToString());
+            double savedLimit = _currentCustomer.CurrencyLimit;
+            _currentCustomer.CurrencyLimit += currencyInserted;
+            if (_currentCustomer.CurrencyLimit <= _limit)
             {
-                using (StreamWriter sw = new StreamWriter(fileStream, Encoding.UTF8))
+                string gotenCurrency = CurrencyFrom.Text;
+                double moneyGet = double.Parse(RublesToGet.Content.ToString());
+                var changeTime = DateTime.Now;
+                var fileName = filesPath + changeTime.Millisecond.ToString().Replace("/", ".") + _currentCustomer.Name;
+                MessageBox.Show("Succesfully Done");
+                using (FileStream fileStream = new FileStream($"{fileName}.txt", FileMode.OpenOrCreate))
                 {
-                    sw.WriteLine($"Operation: Buy rubles in amount of {moneyGet}");
-                    sw.WriteLine($"Inserted {CurrencyFrom.Text} in amount of {InsertedCurrency.Text}");
-                    sw.WriteLine($"Date: {changeTime}");
-                    sw.WriteLine($"Customer:{_currentCustomer.Name}");
-                };
+                    using (StreamWriter sw = new StreamWriter(fileStream, Encoding.UTF8))
+                    {
+                        sw.WriteLine($"Operation: Buy rubles in amount of {moneyGet}");
+                        sw.WriteLine($"Inserted {CurrencyFrom.Text} in amount of {InsertedCurrency.Text}");
+                        sw.WriteLine($"Date: {changeTime}");
+                        sw.WriteLine($"Customer:{_currentCustomer.Name}");
+                    };
+                }
+                fileName = fileName + ".txt";
+                new Process { StartInfo = new ProcessStartInfo(fileName) { UseShellExecute = true } }.Start();
+                RublesToGet.Content = "";
+                _applicationDbContext.SaveChanges();
+                ClearControls();
             }
-            fileName = fileName + ".txt";
-            new Process { StartInfo = new ProcessStartInfo(fileName) { UseShellExecute = true } }.Start();
-            RublesToGet.Content = "";
-            ClearControls();
+            else
+            {
+                MessageBox.Show($"You've already overhelmed limit for this day! Used currency:{_currentCustomer.CurrencyLimit} > {_limit}");
+                _currentCustomer.CurrencyLimit = savedLimit;
+                ClearControls();
+            }
         }
         private void ConvertToCurrency_Click(object sender, RoutedEventArgs e)
         {
             double ConvertedValue;
-
             if (InsertedRubles.Text == null || InsertedRubles.Text.Trim() == "")
             {
                 MessageBox.Show("Please Enter Currency", "Information", MessageBoxButton.OK, MessageBoxImage.Information);

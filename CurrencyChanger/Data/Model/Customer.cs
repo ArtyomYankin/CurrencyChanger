@@ -10,6 +10,6 @@ namespace CurrencyChanger.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int CurrencyLimit { get; set; }
+        public double CurrencyLimit { get; set; }
     }
 }

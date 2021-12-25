@@ -37,6 +37,7 @@
 
             </DataGrid.Columns>
             
+            
         </DataGrid>
         <Grid Grid.Row="2">
 
@@ -112,6 +113,9 @@
             </Border>
 
         </Grid>
-        <Button Content="operations history" Margin="570,89,177,131" Grid.Row="1" Click="BrowseOpHistory"></Button>
+        <Button Content="operations history" Margin="590,10,157,210" Grid.Row="1" Click="BrowseOpHistory"></Button>
+        <Label Content="{Binding currencyLimit}" Margin="534,89,258,131" Grid.Row="1"></Label>
+        <TextBox x:Name="NewLimit" Margin="636,170,258,62" Grid.Row="1"></TextBox>
+        <Button Content="Set new limit" Click="ChangeLimit" Margin="729,161,93,62" Grid.Row="1"></Button>
     </Grid>
 </Window>
